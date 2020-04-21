@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -16,14 +19,36 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.set_alarm_activity);
+
+        context = getApplicationContext();
+
+//        Intent intent = new Intent(this, AlarmService.class);
+//        startService(intent);
 
 
-        String hour = "15";
-        String minute = "59";
+
+//        Intent intent = new Intent(this, AlarmService.class);
+//        intent.putExtra("hour", hour);
+//        intent.putExtra("minute", minute);
+//        intent.putExtra("second", second);
+//        startService(intent);
+    }
+
+    public void setAlarm(View view) throws InterruptedException {
+        EditText hourEditText = findViewById(R.id.hour_text);
+        EditText minuteEditText = findViewById(R.id.minute_text);
+
+
+
+
+        String hour = hourEditText.getText().toString();
+        String minute = minuteEditText.getText().toString();
         String second = "00";
 
         Calendar calendar = Calendar.getInstance();
@@ -31,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         int minuteDist = Integer.parseInt(minute) - calendar.get(Calendar.MINUTE);
         int secondDist = Integer.parseInt(second) - calendar.get(Calendar.SECOND);
 
-        int seconds = 3600 * hourDist + 60 * minuteDist + secondDist;
+        final int seconds = 3600 * hourDist + 60 * minuteDist + secondDist;
 
 
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
@@ -41,15 +66,16 @@ public class MainActivity extends AppCompatActivity {
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                 + (seconds * 1000), pendingIntent);
 
-//        System.out.println("herererererer ========= " + seconds);
 
         Toast.makeText(this, "Alarm set in " + seconds + " seconds",Toast.LENGTH_LONG).show();
 
+    }
 
-//        Intent intent = new Intent(this, AlarmService.class);
-//        intent.putExtra("hour", hour);
-//        intent.putExtra("minute", minute);
-//        intent.putExtra("second", second);
-//        startService(intent);
+    public static Context getContext() {
+        return context;
+    }
+
+    public static void setContext(Context context) {
+        MainActivity.context = context;
     }
 }

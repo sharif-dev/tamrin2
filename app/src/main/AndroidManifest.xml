@@ -16,6 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".alarmFeature.AlarmActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <service android:name=".alarmFeature.AlarmService"/>
 
         <receiver android:name=".alarmFeature.AlarmReceiver">
@@ -25,6 +32,8 @@
             </intent-filter>
 
         </receiver>
+
     </application>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
 </manifest>
