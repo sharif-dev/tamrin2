@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        System.out.println("helloooooo");
         super.onResume();
     }
 

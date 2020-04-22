@@ -14,6 +14,8 @@ public class AlarmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toast.makeText(this, "another activity started!", Toast.LENGTH_LONG).show();
+
+
+//        Toast.makeText(this, "another activity started!", Toast.LENGTH_LONG).show();
     }
 }

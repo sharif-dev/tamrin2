@@ -25,7 +25,7 @@ import java.util.TimerTask;
 public class AlarmService extends Service implements MediaPlayer.OnPreparedListener {
     private PowerManager.WakeLock wl;
     private Ringtone ringtone;
-    private MediaPlayer player;
+    private MediaPlayer player = MainActivity.getPlayer();
 
     public AlarmService() {
     }
@@ -40,6 +40,10 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
         // do your jobs here
 
         System.out.println("+++++++++++++++++++");
+
+        player.setVolume(500, 500);
+        player.setLooping(true);
+        player.start();
 
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds

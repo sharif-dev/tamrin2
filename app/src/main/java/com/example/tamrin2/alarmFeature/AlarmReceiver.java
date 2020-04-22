@@ -29,11 +29,12 @@ public class AlarmReceiver extends BroadcastReceiver {
                 Toast.makeText(context, "Alarm....", Toast.LENGTH_LONG).show();
 
 
-                player.setLooping(true);
-                player.start();
-//                Intent n = new Intent(context, AlarmService.class);
-//                n.putExtra("uri", intent.getExtras().getString("uri"));
-//                context.startService(n);
+//                player.setVolume(500, 500);
+//                player.setLooping(true);
+//                player.start();
+                Intent n = new Intent(context, AlarmService.class);
+                n.putExtra("uri", intent.getExtras().getString("uri"));
+                context.startService(n);
 
 
 
