@@ -4,16 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 
 import com.example.tamrin2.alarmFeature.AlarmReceiver;
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static Context context;
     private static MediaPlayer player;
+    ToggleButton toggleButton;
 
 
     @Override
@@ -35,23 +40,22 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
         context = getApplicationContext();
-//        player = MediaPlayer.create(getApplicationContext(), Settings.System.DEFAULT_RINGTONE_URI);
 
-//
-//        MediaPlayer player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
-//        player.setLooping(true);
-//        player.start();
-
-//        Intent intent = new Intent(this, AlarmService.class);
-//        startService(intent);
-
-
-
-//        Intent intent = new Intent(this, AlarmService.class);
-//        intent.putExtra("hour", hour);
-//        intent.putExtra("minute", minute);
-//        intent.putExtra("second", second);
-//        startService(intent);
+        toggleButton = findViewById(R.id.toggleButton);
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (toggleButton.isChecked()) {
+                    System.out.println("############### turning off");
+//                    toggleButton.setChecked(false);
+                    enableBroadcastReceiver();
+                } else {
+                    System.out.println("############### turning on");
+//                    toggleButton.setChecked(true);
+                    disableBroadcastReceiver();
+                }
+            }
+        });
     }
 
     @Override
@@ -84,10 +88,42 @@ public class MainActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                 + (seconds * 1000), pendingIntent);
+        toggleButton.setChecked(true);
 
 
         Toast.makeText(this, "Alarm set in " + seconds + " seconds",Toast.LENGTH_LONG).show();
 
+    }
+
+    public void enableBroadcastReceiver(){
+        ComponentName receiver = new ComponentName(this, AlarmReceiver.class);
+        PackageManager pm = this.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+        Toast.makeText(this, "Enabled broadcast receiver", Toast.LENGTH_SHORT).show();
+    }
+
+    public void disableBroadcastReceiver(){
+        ComponentName receiver = new ComponentName(this, AlarmReceiver.class);
+        PackageManager pm = this.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+        Toast.makeText(this, "Disabled broadcst receiver", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onToggleButtonClick(View view) {
+        ToggleButton toggleButton = findViewById(R.id.toggleButton);
+        if (toggleButton.isChecked()) {
+            toggleButton.setChecked(false);
+            disableBroadcastReceiver();
+        }else {
+            toggleButton.setChecked(true);
+            enableBroadcastReceiver();
+        }
     }
 
     public static Context getContext() {
