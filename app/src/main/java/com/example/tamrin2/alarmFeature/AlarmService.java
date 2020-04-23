@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.provider.Settings;
 
 import androidx.annotation.Nullable;
 
@@ -25,7 +26,7 @@ import java.util.TimerTask;
 public class AlarmService extends Service implements MediaPlayer.OnPreparedListener {
     private PowerManager.WakeLock wl;
     private Ringtone ringtone;
-    private MediaPlayer player = MainActivity.getPlayer();
+    private MediaPlayer player;// = MainActivity.getPlayer();
     private Vibrator vibrator;
 
     public AlarmService() {
@@ -37,15 +38,25 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
-        System.out.println("+++++++++++++++++++");
-
+    public void onCreate() {
+        super.onCreate();
+        player = MediaPlayer.create(getApplicationContext(), Settings.System.DEFAULT_RINGTONE_URI);
         player.setVolume(100, 100);
         player.setLooping(true);
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        System.out.println("+++++++++++++++++++" + player);
+
         player.start();
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrator.vibrate(VibrationEffect.createOneShot(10000, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
@@ -53,37 +64,9 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
             vibrator.vibrate(10000);
         }
 
-//        Intent intent1 = new Intent(MainActivity.getContext(), AlarmActivity.class);
-//        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        MainActivity.getContext().startActivity(intent1);
-//        Uri uri = Uri.parse(intent.getExtras().getString("uri"));
-//
-//        player = new MediaPlayer();
-//        try {
-//            player.setDataSource(getApplicationContext(),uri);
-//            player.setVolume(100,100);
-//            player.setLooping(true);
-//            player.setOnPreparedListener(this);
-//            player.prepareAsync();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                AudioManager am =
-//                        (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-//                am.setStreamVolume(
-//                        AudioManager.STREAM_MUSIC,
-//                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-//                        0);
-//            }
-//        },0,2000);
 
         return START_NOT_STICKY;
     }
-
 
     @Override
     public void onDestroy(){

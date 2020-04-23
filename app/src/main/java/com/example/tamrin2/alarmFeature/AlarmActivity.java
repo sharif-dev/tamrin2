@@ -59,6 +59,9 @@ public class AlarmActivity extends Activity {
         myServiceIntent = new Intent(this, AlarmService.class);
         startService(myServiceIntent);
 
+//        myServiceIntent = new Intent(this, AlarmServiceTwo.class);
+//        startService(myServiceIntent);
+
         textView = findViewById(R.id.textView);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -71,7 +74,7 @@ public class AlarmActivity extends Activity {
             Toast.makeText(getBaseContext(), "Error: No Accelerometer.", Toast.LENGTH_LONG).show();
         }
 
-        setStopAlarmManager();
+//        setStopAlarmManager();
 
 //        setFinishActivity();
     }

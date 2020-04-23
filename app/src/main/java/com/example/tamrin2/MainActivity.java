@@ -27,13 +27,15 @@ public class MainActivity extends AppCompatActivity {
     private static Context context;
     private static MediaPlayer player;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_alarm_activity);
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
         context = getApplicationContext();
-        player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
+//        player = MediaPlayer.create(getApplicationContext(), Settings.System.DEFAULT_RINGTONE_URI);
 
 //
 //        MediaPlayer player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        System.out.println("hererererererere in onResume functionnnnnnnnnnn");
         super.onResume();
     }
 
