@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">tamrin2</string>
+    <string name="sleep_mode">Sleep Mode</string>
+    <string name="enable3">Enable</string>
+    <string name="degree">set the degree at which the phone will be locked : </string>
 </resources>
