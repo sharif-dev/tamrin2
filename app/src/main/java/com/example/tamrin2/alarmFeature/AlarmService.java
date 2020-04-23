@@ -26,6 +26,7 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
     private PowerManager.WakeLock wl;
     private Ringtone ringtone;
     private MediaPlayer player = MainActivity.getPlayer();
+    private Vibrator vibrator;
 
     public AlarmService() {
     }
@@ -37,21 +38,19 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // do your jobs here
 
         System.out.println("+++++++++++++++++++");
 
-        player.setVolume(500, 500);
+        player.setVolume(100, 100);
         player.setLooping(true);
         player.start();
 
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(10000, VibrationEffect.DEFAULT_AMPLITUDE));
+            vibrator.vibrate(VibrationEffect.createOneShot(10000, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             //deprecated in API 26
-            v.vibrate(10000);
+            vibrator.vibrate(10000);
         }
 
 //        Intent intent1 = new Intent(MainActivity.getContext(), AlarmActivity.class);
@@ -85,15 +84,18 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
         return START_NOT_STICKY;
     }
 
+
     @Override
     public void onDestroy(){
         super.onDestroy();
         player.stop();
         player.release();
+        vibrator.cancel();
         sendBroadcast(new Intent("finishAlarmReceived"));
     }
 
     public void onPrepared(final MediaPlayer player) {
+        System.out.println("_________________________");
         player.start();
         System.out.println("Player song started!");
         Handler handler = new Handler();

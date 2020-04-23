@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.set_alarm_activity);
 
         context = getApplicationContext();
-        player = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
+        player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
 
 //
 //        MediaPlayer player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
@@ -57,11 +57,9 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    public void setAlarm(View view) throws InterruptedException {
+    public void setAlarm(View view) {
         EditText hourEditText = findViewById(R.id.hour_text);
         EditText minuteEditText = findViewById(R.id.minute_text);
-
-
 
 
         String hour = hourEditText.getText().toString();
