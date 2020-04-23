@@ -28,7 +28,7 @@ public class AlarmServiceTwo extends IntentService {
     @Override
     public void onCreate() {
         vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
-        player = MainActivity.getPlayer();
+//        player = MainActivity.getPlayer();
         super.onCreate();
     }
 

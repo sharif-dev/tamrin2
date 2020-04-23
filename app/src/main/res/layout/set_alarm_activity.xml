@@ -7,15 +7,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/hour_text"
-        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="set hour"
         />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/minute_text"
-        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="set minute"
         />
+
+    <EditText
+        android:id="@+id/vLimit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter velocity limit"
+        android:gravity="center"
+        />
+
 
     <Button
         android:layout_width="match_parent"
@@ -29,8 +40,8 @@
         android:id="@+id/toggleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textOff="OFF"
-        android:textOn="ON"
+        android:textOff="Alarm Is Off"
+        android:textOn="Alarm Is On"
         />
 
 

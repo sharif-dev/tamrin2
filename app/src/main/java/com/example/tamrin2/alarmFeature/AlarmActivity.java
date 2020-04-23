@@ -1,10 +1,6 @@
 package com.example.tamrin2.alarmFeature;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -28,7 +24,7 @@ public class AlarmActivity extends Activity {
     List list;
     Intent myServiceIntent;
     float zAxisVelocity;
-    int velocityLimit = 2;
+    int velocityLimit;
 
     SensorEventListener sensorEventListener = new SensorEventListener() {
         @Override
@@ -36,6 +32,7 @@ public class AlarmActivity extends Activity {
             float[] values = sensorEvent.values;
             textView.setText("x: "+values[0]+"\ny: "+values[1]+"\nz: "+values[2]);
             zAxisVelocity = values[2] < 0 ? -values[2] : values[2];
+
 
             if (zAxisVelocity >= velocityLimit) {
                 finish();
@@ -53,8 +50,8 @@ public class AlarmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Intent serviceIntent = new Intent(this, AlarmService.class);
-//        startService(serviceIntent);
+        Intent intent = getIntent();
+        velocityLimit = intent.getIntExtra("velocity limit", 0);
 
         myServiceIntent = new Intent(this, AlarmService.class);
         startService(myServiceIntent);
@@ -73,10 +70,6 @@ public class AlarmActivity extends Activity {
         }else{
             Toast.makeText(getBaseContext(), "Error: No Accelerometer.", Toast.LENGTH_LONG).show();
         }
-
-//        setStopAlarmManager();
-
-//        setFinishActivity();
     }
 
     @Override
@@ -97,25 +90,5 @@ public class AlarmActivity extends Activity {
         stopService(myServiceIntent);
 
         super.onStop();
-    }
-
-    public void setStopAlarmManager() {
-        Intent intent = new Intent(this.getApplicationContext(), AlarmReceiver.class);
-        intent.setAction("stop sound");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this.getApplicationContext(), 223423423, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                + (10 * 1000), pendingIntent);
-    }
-
-    public void setFinishActivity() {
-        Intent intent = new Intent(this.getApplicationContext(), AlarmReceiver.class);
-        intent.setAction("finish second activity");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this.getApplicationContext(), 233423423, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                + (11 * 1000), pendingIntent);
     }
 }

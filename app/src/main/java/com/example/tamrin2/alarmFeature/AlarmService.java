@@ -3,10 +3,8 @@ package com.example.tamrin2.alarmFeature;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -14,14 +12,6 @@ import android.os.PowerManager;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.Settings;
-
-import androidx.annotation.Nullable;
-
-import com.example.tamrin2.MainActivity;
-
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AlarmService extends Service implements MediaPlayer.OnPreparedListener {
     private PowerManager.WakeLock wl;
