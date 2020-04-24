@@ -2,7 +2,10 @@ package com.example.tamrin2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -29,6 +32,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 //...
+            }
+        });
+
+
+        CheckBox check = findViewById(R.id.Ethird);
+        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    Intent intent = new Intent(getApplicationContext(), SleepMode.class);
+                    startService(intent);
+                }
+                else{
+
+                }
             }
         });
     }
