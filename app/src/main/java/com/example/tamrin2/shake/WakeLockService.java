@@ -1,4 +1,4 @@
-package com.example.tamrin2;
+package com.example.tamrin2.shake;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -10,13 +10,16 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.tamrin2.MainActivity;
+import com.example.tamrin2.R;
+
 import androidx.annotation.Nullable;
 
 public class WakeLockService extends Service {
     private static final int ONGOING_NOTIFICATION_ID =1;
     private final String TAG = getClass().getSimpleName();
     private PowerManager.WakeLock wakeLock;
-
+    
     @SuppressLint("InvalidWakeLockTag")
     @Override
     public void onCreate() {

@@ -1,4 +1,4 @@
-package com.example.tamrin2;
+package com.example.tamrin2.shake;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ToggleButton;
+
+import com.example.tamrin2.R;
+import com.example.tamrin2.shake.MySensorService;
+
 import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

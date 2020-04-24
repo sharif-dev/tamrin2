@@ -1,4 +1,4 @@
-package com.example.tamrin2;
+package com.example.tamrin2.shake;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -14,10 +14,10 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.util.Log;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
-import java.io.PipedOutputStream;
+import com.example.tamrin2.MainActivity;
+import com.example.tamrin2.R;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
