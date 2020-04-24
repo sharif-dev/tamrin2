@@ -16,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Intent intent = new Intent(this, MySensorService.class);
-//        stopService(intent);
         shakeBtn = (Button) findViewById(R.id.shake_btn);
         shakeBtn.setVisibility(View.VISIBLE);
         shakeBtn.setOnClickListener(new View.OnClickListener() {
