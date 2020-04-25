@@ -48,7 +48,7 @@ public class AlarmActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.second_activity);
 
         Intent intent = getIntent();
         velocityLimit = intent.getIntExtra("velocity limit", 0);
@@ -59,7 +59,7 @@ public class AlarmActivity extends Activity {
 //        myServiceIntent = new Intent(this, AlarmServiceTwo.class);
 //        startService(myServiceIntent);
 
-        textView = findViewById(R.id.textView);
+        textView = findViewById(R.id.textVeiw);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 

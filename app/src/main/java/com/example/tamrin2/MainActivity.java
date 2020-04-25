@@ -8,13 +8,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.tamrin2.alarmFeature.AlarmFragment;
 import com.example.tamrin2.alarmFeature.AlarmReceiver;
 
 import java.util.Calendar;
@@ -30,23 +32,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.set_alarm_activity);
+//        setContentView(R.layout.set_alarm_activity);
+        setContentView(R.layout.activity_main);
 
         context = getApplicationContext();
 
-        toggleButton = findViewById(R.id.toggleButton);
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (toggleButton.isChecked()) {
-                    enableBroadcastReceiver();
-                } else {
-                    disableBroadcastReceiver();
-                }
-            }
-        });
+        loadFragment(new AlarmFragment(), R.id.first_fragment);
 
-        vLimitEditText = findViewById(R.id.vLimit);
+
+
+//        toggleButton = findViewById(R.id.toggleButton);
+//        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if (toggleButton.isChecked()) {
+//                    enableBroadcastReceiver();
+//                } else {
+//                    disableBroadcastReceiver();
+//                }
+//            }
+//        });
+//
+//        vLimitEditText = findViewById(R.id.vLimit);
 
     }
 
@@ -114,5 +121,13 @@ public class MainActivity extends AppCompatActivity {
 
     public static void setContext(Context context) {
         MainActivity.context = context;
+    }
+
+    public void loadFragment(Fragment fragment, int layout) {
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(layout, fragment);
+        ft.commit();
+
     }
 }
