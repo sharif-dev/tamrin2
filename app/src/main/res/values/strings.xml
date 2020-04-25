@@ -4,4 +4,6 @@
     <string name="enable3">Enable</string>
     <string name="degree">set the degree at which the phone will be locked : </string>
     <string name="no_sensor">Your device does not have the required sensors!!!</string>
+    <string name="admin_enabled">This app can now lock your device</string>
+    <string name="admin_disable">This app can no longer lock your device</string>
 </resources>

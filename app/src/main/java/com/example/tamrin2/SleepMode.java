@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 public class SleepMode extends Service implements SensorEventListener {
     private SensorManager sensorManager = null;
-    private DevicePolicyManager deviceManger;
     //private Looper serviceLooper;
     //private ServiceHandler serviceHandler;
 
@@ -46,7 +45,6 @@ public class SleepMode extends Service implements SensorEventListener {
     }*/
 
     public int onStartCommand(Intent intent, int flags, int startId){
-        deviceManger = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -67,7 +65,7 @@ public class SleepMode extends Service implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         if(event.sensor.getType()==Sensor.TYPE_PROXIMITY) {
             if (event.values[0] == 0) {
-                deviceManger.lockNow();
+                MainActivity.deviceManger.lockNow();
                 stopSelf();
             }
         }
