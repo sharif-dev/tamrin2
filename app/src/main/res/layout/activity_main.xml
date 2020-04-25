@@ -28,14 +28,25 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:text="@string/degree"
         android:textColor="@color/darkBlack"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Ethird" />
+
+    <TextView
+        android:id="@+id/seekBar_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkBlack"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/degrees"/>
 
     <SeekBar
         android:id="@+id/degrees"
@@ -43,6 +54,7 @@
         android:layout_height="wrap_content"
         android:progress="45"
         android:max="90"
+        android:min="0"
         android:indeterminate="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -28,13 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         sBar = findViewById(R.id.degrees);
-        tView =  findViewById(R.id.textView);
-        tView.setText(R.string.degree);
+        tView =  findViewById(R.id.seekBar_result);
+        tView.setText("45");
         sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int pval = 0;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 pval = progress;
+                tView.setText(String.valueOf(progress));
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
