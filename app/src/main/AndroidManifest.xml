@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tamrin2">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,15 +27,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".alarmFeature.AlarmServiceTwo"/>
+        <service android:name=".alarmFeature.AlarmServiceTwo" />
         <service android:name=".alarmFeature.AlarmService"/>
 
-        <receiver android:name=".alarmFeature.AlarmReceiver">
-            <intent-filter>
-                <action android:name="com.tutorialspoint.CUSTOM_INTENT">
-                </action>
-            </intent-filter>
+<!--        <receiver android:name=".alarmFeature.AlarmReceiver">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.tutorialspoint.CUSTOM_INTENT">-->
+<!--                </action>-->
+<!--            </intent-filter>-->
 
+<!--        </receiver>-->
+
+        <receiver android:name=".alarmFeature.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+            >
+            <intent-filter>
+
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+            </intent-filter>
         </receiver>
 
     </application>

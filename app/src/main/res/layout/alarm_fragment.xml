@@ -4,18 +4,47 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/frg_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="write ..."
+        android:id="@+id/hour_text"
+        android:gravity="center"
+        android:hint="set hour"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/minute_text"
+        android:gravity="center"
+        android:hint="set minute"
+        />
+
+    <EditText
+        android:id="@+id/vLimit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter velocity limit"
+        android:gravity="center"
         />
 
 
     <Button
-        android:id="@+id/frg_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="fragment button"
+        android:id="@+id/setAlarmBtn"
+        android:onClick="setAlarm"
+        android:text="set alarm"
         />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textOff="Alarm Is Off"
+        android:textOn="Alarm Is On"
+        />
+
+
+
 
 </LinearLayout>

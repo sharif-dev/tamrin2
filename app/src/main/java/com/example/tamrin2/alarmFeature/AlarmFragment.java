@@ -36,7 +36,7 @@ public class AlarmFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        fragmentView = inflater.inflate(R.layout.alarm_fragment, container, false);
-        fragmentView = inflater.inflate(R.layout.set_alarm_activity, container, false);
+        fragmentView = inflater.inflate(R.layout.alarm_fragment, container, false);
         return fragmentView;
     }
 
@@ -87,7 +87,7 @@ public class AlarmFragment extends Fragment {
 
 
         Intent intent = new Intent(getActivity().getApplicationContext(), AlarmReceiver.class);
-        intent.setAction("start service");
+        intent.setAction("AlarmStarted");
         int vl = Integer.parseInt(vLimitEditText.getText().toString());
         intent.putExtra("velocity limit", vl);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(

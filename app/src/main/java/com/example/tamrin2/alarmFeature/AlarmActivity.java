@@ -33,7 +33,6 @@ public class AlarmActivity extends Activity {
             textView.setText("x: "+values[0]+"\ny: "+values[1]+"\nz: "+values[2]);
             zAxisVelocity = values[2] < 0 ? -values[2] : values[2];
 
-
             if (zAxisVelocity >= velocityLimit) {
                 finish();
             }
