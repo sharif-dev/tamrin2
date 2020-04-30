@@ -30,11 +30,13 @@ public class MainActivity extends AppCompatActivity {
         sBar = findViewById(R.id.degrees);
         tView =  findViewById(R.id.seekBar_result);
         tView.setText("45");
+        SleepMode.degree = sBar.getProgress();
         sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int pval = 0;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 pval = progress;
+                SleepMode.degree = pval;
                 tView.setText(String.valueOf(progress));
             }
             @Override
