@@ -55,9 +55,6 @@ public class AlarmActivity extends Activity {
         myServiceIntent = new Intent(this, AlarmService.class);
         startService(myServiceIntent);
 
-//        myServiceIntent = new Intent(this, AlarmServiceTwo.class);
-//        startService(myServiceIntent);
-
         textView = findViewById(R.id.textVeiw);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -74,12 +71,13 @@ public class AlarmActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        int milliSeconds = 10*60*1000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 finish();
             }
-        }, 10000);
+        }, milliSeconds);
     }
 
     protected void onStop() {

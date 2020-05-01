@@ -55,11 +55,9 @@ public class AlarmFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (toggleButton.isChecked()) {
-//                    enableBroadcastReceiver();
                     enableAlarm();
 
                 } else {
-//                    disableBroadcastReceiver();
                     cancelAlarm();
                 }
             }
@@ -89,14 +87,6 @@ public class AlarmFragment extends Fragment {
 
     public void enableAlarm() {
         setAlarm();
-
-
-//        Intent intent = new Intent(getActivity().getApplicationContext(), AlarmReceiver.class);
-//        intent.setAction("AlarmStarted");
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-//                getActivity().getApplicationContext(), 234324243, intent, 0);
-
-
     }
 
     public void setAlarm() {
@@ -128,29 +118,10 @@ public class AlarmFragment extends Fragment {
         toggleButton.setChecked(true);
 
 
-        Toast.makeText(getActivity(), "Alarm set in " + seconds + " seconds",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Alarm set in " + seconds + " seconds", Toast.LENGTH_LONG).show();
 
     }
 
-    public void enableBroadcastReceiver(){
-        ComponentName receiver = new ComponentName(getActivity(), AlarmReceiver.class);
-        PackageManager pm = getActivity().getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-        Toast.makeText(getActivity(), "Enabled broadcast receiver", Toast.LENGTH_SHORT).show();
-    }
-
-    public void disableBroadcastReceiver(){
-        ComponentName receiver = new ComponentName(getActivity(), AlarmReceiver.class);
-        PackageManager pm = getActivity().getPackageManager();
-
-        pm.setComponentEnabledSetting(receiver,
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP);
-        Toast.makeText(getActivity(), "Disabled broadcst receiver", Toast.LENGTH_SHORT).show();
-    }
 }
 
 

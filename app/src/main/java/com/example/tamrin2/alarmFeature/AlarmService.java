@@ -45,11 +45,15 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
 
         player.start();
 
+        int endTimeMilliSeconds = 60 * 10 * 1000;
+
+        long[] pattern = {0, 1000, 100};
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(10000, VibrationEffect.DEFAULT_AMPLITUDE));
+            vibrator.vibrate(VibrationEffect.createWaveform(pattern, 0));
         } else {
             //deprecated in API 26
-            vibrator.vibrate(10000);
+            vibrator.vibrate(endTimeMilliSeconds);
         }
 
         final Handler handler = new Handler();
