@@ -34,28 +34,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.alarm_fragment);
         setContentView(R.layout.activity_main);
 
         context = getApplicationContext();
 
         loadFragment(new AlarmFragment(), R.id.first_fragment);
-
-
-
-//        toggleButton = findViewById(R.id.toggleButton);
-//        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (toggleButton.isChecked()) {
-//                    enableBroadcastReceiver();
-//                } else {
-//                    disableBroadcastReceiver();
-//                }
-//            }
-//        });
-//
-//        vLimitEditText = findViewById(R.id.vLimit);
 
     }
 

@@ -2,10 +2,8 @@ package com.example.tamrin2.alarmFeature;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -23,32 +22,32 @@ import androidx.fragment.app.Fragment;
 import com.example.tamrin2.R;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class AlarmFragment extends Fragment {
 
-    View fragmentView;
+    private View fragmentView;
 
-    AlarmManager alarmManager;
-
-    String hour;
-    String minute;
-    String second;
+    private AlarmManager alarmManager;
 
     private ToggleButton toggleButton;
-    private int velocityLimit;
     private EditText vLimitEditText;
+
+    private NumberPicker hourPicker;
+    private NumberPicker minutePicker;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        fragmentView = inflater.inflate(R.layout.alarm_fragment, container, false);
         fragmentView = inflater.inflate(R.layout.alarm_fragment, container, false);
         return fragmentView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setNumberPickers();
 
         toggleButton = view.findViewById(R.id.toggleButton);
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -56,7 +55,6 @@ public class AlarmFragment extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (toggleButton.isChecked()) {
                     enableAlarm();
-
                 } else {
                     cancelAlarm();
                 }
@@ -74,7 +72,19 @@ public class AlarmFragment extends Fragment {
         });
 
 
-//        super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    public void setNumberPickers() {
+        hourPicker = fragmentView.findViewById(R.id.hour_picker);
+        minutePicker = fragmentView.findViewById(R.id.minute_picker);
+
+        hourPicker.setMaxValue(24);
+        hourPicker.setMinValue(0);
+
+        minutePicker.setMaxValue(59);
+        minutePicker.setMinValue(0);
+
     }
 
     public void cancelAlarm() {
@@ -90,18 +100,14 @@ public class AlarmFragment extends Fragment {
     }
 
     public void setAlarm() {
-        EditText hourEditText = fragmentView.findViewById(R.id.hour_text);
-        EditText minuteEditText = fragmentView.findViewById(R.id.minute_text);
-
-
-        hour = hourEditText.getText().toString();
-        minute = minuteEditText.getText().toString();
-        second = "00";
+        int hour = hourPicker.getValue();
+        int minute = minutePicker.getValue();
+        int second = 0;
 
         Calendar calendar = Calendar.getInstance();
-        int hourDist = Integer.parseInt(hour) - calendar.get(Calendar.HOUR_OF_DAY);
-        int minuteDist = Integer.parseInt(minute) - calendar.get(Calendar.MINUTE);
-        int secondDist = Integer.parseInt(second) - calendar.get(Calendar.SECOND);
+        int hourDist = hour - calendar.get(Calendar.HOUR_OF_DAY);
+        int minuteDist = minute - calendar.get(Calendar.MINUTE);
+        int secondDist = second - calendar.get(Calendar.SECOND);
 
         final int seconds = 3600 * hourDist + 60 * minuteDist + secondDist;
 
