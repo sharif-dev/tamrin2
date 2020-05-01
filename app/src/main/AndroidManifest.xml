@@ -20,7 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".alarmFeature.AlarmActivity">
+        <activity android:name=".alarmFeature.AlarmActivity"
+            android:exported="true"
+            android:enabled="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -23,10 +23,17 @@ import androidx.fragment.app.Fragment;
 import com.example.tamrin2.R;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class AlarmFragment extends Fragment {
 
     View fragmentView;
+
+    AlarmManager alarmManager;
+
+    String hour;
+    String minute;
+    String second;
 
     private ToggleButton toggleButton;
     private int velocityLimit;
@@ -48,9 +55,12 @@ public class AlarmFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (toggleButton.isChecked()) {
-                    enableBroadcastReceiver();
+//                    enableBroadcastReceiver();
+                    enableAlarm();
+
                 } else {
-                    disableBroadcastReceiver();
+//                    disableBroadcastReceiver();
+                    cancelAlarm();
                 }
             }
         });
@@ -69,14 +79,34 @@ public class AlarmFragment extends Fragment {
 //        super.onViewCreated(view, savedInstanceState);
     }
 
+    public void cancelAlarm() {
+        Intent intent = new Intent(getActivity().getApplicationContext(), AlarmReceiver.class);
+        intent.setAction("AlarmStarted");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                getActivity().getApplicationContext(), 234324243, intent, 0);
+        alarmManager.cancel(pendingIntent);
+    }
+
+    public void enableAlarm() {
+        setAlarm();
+
+
+//        Intent intent = new Intent(getActivity().getApplicationContext(), AlarmReceiver.class);
+//        intent.setAction("AlarmStarted");
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+//                getActivity().getApplicationContext(), 234324243, intent, 0);
+
+
+    }
+
     public void setAlarm() {
         EditText hourEditText = fragmentView.findViewById(R.id.hour_text);
         EditText minuteEditText = fragmentView.findViewById(R.id.minute_text);
 
 
-        String hour = hourEditText.getText().toString();
-        String minute = minuteEditText.getText().toString();
-        String second = "00";
+        hour = hourEditText.getText().toString();
+        minute = minuteEditText.getText().toString();
+        second = "00";
 
         Calendar calendar = Calendar.getInstance();
         int hourDist = Integer.parseInt(hour) - calendar.get(Calendar.HOUR_OF_DAY);
@@ -92,7 +122,7 @@ public class AlarmFragment extends Fragment {
         intent.putExtra("velocity limit", vl);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 getActivity().getApplicationContext(), 234324243, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                 + (seconds * 1000), pendingIntent);
         toggleButton.setChecked(true);

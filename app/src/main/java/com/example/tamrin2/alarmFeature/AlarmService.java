@@ -40,6 +40,9 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        final int vl = intent.getIntExtra("velocity limit", 0);
+
         player.start();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -49,8 +52,42 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
             vibrator.vibrate(10000);
         }
 
+        final Handler handler = new Handler();
+//
+//        Thread activityThread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        System.out.println("^^^^^^^^^^^^^^^^^^^");
+//                        Intent secondActivityIntent = new Intent(getApplicationContext(), AlarmActivity.class);
+//                        secondActivityIntent.putExtra("velocity limit", vl);
+//                        secondActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        getApplicationContext().startActivity(secondActivityIntent);
+//                    }
+//                });
+//            }
+//        });
+//
+//        activityThread.start();
 
-        return START_NOT_STICKY;
+
+
+
+//        new Handler().post(new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("^^^^^^^^^^^^^^^^^^^");
+//                Intent secondActivityIntent = new Intent(getApplicationContext(), AlarmActivity.class);
+//                secondActivityIntent.putExtra("velocity limit", vl);
+//                secondActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                getApplicationContext().startActivity(secondActivityIntent);
+//            }
+//        });
+
+
+        return START_STICKY;
     }
 
     @Override

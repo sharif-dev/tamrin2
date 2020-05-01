@@ -21,17 +21,20 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 
         if ("AlarmStarted".equals(action)) {
-            Toast.makeText(context, "Alarm....", Toast.LENGTH_LONG).show();
-
-            Intent serviceIntent = new Intent(context, AlarmService.class);
-            context.startService(serviceIntent);
+//            Toast.makeText(context, "Alarm....", Toast.LENGTH_LONG).show();
 
 
-//            Intent secondActivityIntent = new Intent(context, AlarmActivity.class);
-//            int vl = intent.getIntExtra("velocity limit", 0);
-//            secondActivityIntent.putExtra("velocity limit", vl);
-//            secondActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            context.startActivity(secondActivityIntent);
+//            Intent serviceIntent = new Intent(context, AlarmService.class);
+//            context.startService(serviceIntent);
+
+            System.out.println("$$$$$$$$$$$$$$$$$$$ alo? " + context);
+
+            Intent secondActivityIntent = new Intent(context, AlarmActivity.class);
+            int vl = intent.getIntExtra("velocity limit", 0);
+            secondActivityIntent.putExtra("velocity limit", vl);
+            secondActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(secondActivityIntent);
+
         }
 
     }
