@@ -23,36 +23,18 @@
         <activity android:name=".alarmFeature.AlarmActivity"
             android:exported="true"
             android:enabled="true"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <service android:name=".alarmFeature.AlarmServiceTwo" />
         <service android:name=".alarmFeature.AlarmService"/>
 
-<!--        <receiver android:name=".alarmFeature.AlarmReceiver">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.tutorialspoint.CUSTOM_INTENT">-->
-<!--                </action>-->
-<!--            </intent-filter>-->
-
-<!--        </receiver>-->
 
         <receiver android:name=".alarmFeature.AlarmReceiver"
             android:enabled="true"
             android:exported="true"
-            >
-            <intent-filter>
-
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-
-            </intent-filter>
-        </receiver>
+            />
 
     </application>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+
 
 </manifest>

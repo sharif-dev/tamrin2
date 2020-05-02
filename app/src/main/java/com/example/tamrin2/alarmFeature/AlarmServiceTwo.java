@@ -42,13 +42,6 @@ public class AlarmServiceTwo extends IntentService {
         player.start();
 
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            vibrator.vibrate(VibrationEffect.createOneShot(10000, VibrationEffect.DEFAULT_AMPLITUDE));
-//        } else {
-//            //deprecated in API 26
-//            vibrator.vibrate(10000);
-//        }
-
     }
 
     @Override

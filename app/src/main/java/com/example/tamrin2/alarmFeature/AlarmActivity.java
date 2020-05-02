@@ -49,14 +49,22 @@ public class AlarmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_activity);
 
+        textView = findViewById(R.id.textVeiw);
+
         Intent intent = getIntent();
         velocityLimit = intent.getIntExtra("velocity limit", 0);
 
+        startService();
+        handleSensors();
+
+    }
+
+    public void startService() {
         myServiceIntent = new Intent(this, AlarmService.class);
         startService(myServiceIntent);
+    }
 
-        textView = findViewById(R.id.textVeiw);
-
+    public void handleSensors() {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         list = sensorManager.getSensorList(Sensor.TYPE_GYROSCOPE);
