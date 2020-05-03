@@ -8,6 +8,9 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +52,9 @@ public class AlarmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_activity);
 
-        textView = findViewById(R.id.textVeiw);
+        animateBell();
+
+        textView = findViewById(R.id.textView);
 
         Intent intent = getIntent();
         velocityLimit = intent.getIntExtra("velocity limit", 0);
@@ -57,6 +62,14 @@ public class AlarmActivity extends Activity {
         startService();
         handleSensors();
 
+    }
+
+    public void animateBell() {
+        System.out.println("hererererererererererere is shaking!");
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake_clock);
+        ImageView imgBell= (ImageView) findViewById(R.id.clock);
+        imgBell.setImageResource(R.mipmap.clock);
+        imgBell.setAnimation(shake);
     }
 
     public void startService() {

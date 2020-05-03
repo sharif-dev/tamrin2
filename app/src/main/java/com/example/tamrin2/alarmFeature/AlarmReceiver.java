@@ -13,6 +13,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         String action = intent.getAction();
 
         if ("AlarmStarted".equals(action)) {
+            AlarmFragment.getToggleButton().setChecked(false);
+
             Intent secondActivityIntent = new Intent(context, AlarmActivity.class);
             int vl = intent.getIntExtra("velocity limit", 0);
             secondActivityIntent.putExtra("velocity limit", vl);
