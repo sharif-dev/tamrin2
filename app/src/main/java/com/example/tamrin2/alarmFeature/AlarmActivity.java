@@ -27,25 +27,9 @@ public class AlarmActivity extends Activity {
     List list;
     Intent myServiceIntent;
     float zAxisVelocity;
-    int velocityLimit;
+    double velocityLimit;
 
-    SensorEventListener sensorEventListener = new SensorEventListener() {
-        @Override
-        public void onSensorChanged(SensorEvent sensorEvent) {
-            float[] values = sensorEvent.values;
-            textView.setText("x: "+values[0]+"\ny: "+values[1]+"\nz: "+values[2]);
-            zAxisVelocity = values[2] < 0 ? -values[2] : values[2];
-
-            if (zAxisVelocity >= velocityLimit) {
-                finish();
-            }
-        }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int i) {
-
-        }
-    };
+    SensorEventListener sensorEventListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +41,25 @@ public class AlarmActivity extends Activity {
         textView = findViewById(R.id.textView);
 
         Intent intent = getIntent();
-        velocityLimit = intent.getIntExtra("velocity limit", 0);
+        velocityLimit = intent.getDoubleExtra("velocity limit", 0);
+
+        sensorEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent sensorEvent) {
+                float[] values = sensorEvent.values;
+                textView.setText("x: "+values[0]+"\ny: "+values[1]+"\nz: "+values[2]);
+                zAxisVelocity = values[2] < 0 ? -values[2] : values[2];
+
+                if (zAxisVelocity >= velocityLimit) {
+                    finish();
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int i) {
+
+            }
+        };
 
         startService();
         handleSensors();
@@ -65,9 +67,8 @@ public class AlarmActivity extends Activity {
     }
 
     public void animateBell() {
-        System.out.println("hererererererererererere is shaking!");
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake_clock);
-        ImageView imgBell= (ImageView) findViewById(R.id.clock);
+        ImageView imgBell= findViewById(R.id.clock);
         imgBell.setImageResource(R.mipmap.clock);
         imgBell.setAnimation(shake);
     }

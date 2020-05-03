@@ -93,16 +93,10 @@ public class AlarmFragment extends Fragment {
     @Override
     public void onResume() {
         System.out.println("$$$$$$$$ on resume function");
-//        checkAlarm(getActivity().getApplicationContext());
         super.onResume();
     }
 
     public boolean checkAlarm(Context context) {
-
-//        AlarmManager myAlarmManager = alarmManager = (AlarmManager)
-//                context.getSystemService(Context.ALARM_SERVICE);
-
-
         Intent intent = new Intent(context, AlarmReceiver.class);//the same as up
         intent.setAction("AlarmStarted");//the same as up
         boolean isWorking = (PendingIntent.getBroadcast(context, 234324243, intent,
@@ -112,23 +106,6 @@ public class AlarmFragment extends Fragment {
 
         return isWorking;
 
-    }
-
-    public long getTimeDifference(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        long currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        long currentMinute = calendar.get(Calendar.MINUTE);
-        long currentSeconds = calendar.get(Calendar.SECOND);
-        calendar.setTime(date);
-        long alarmHour = calendar.get(Calendar.HOUR_OF_DAY);
-        long alarmMinute = calendar.get(Calendar.MINUTE);
-        long alarmSecond = calendar.get(Calendar.SECOND);
-
-        System.out.println("** " + date.getTime());
-        System.out.println("current time : " + currentHour + " " + currentMinute + " " + currentSeconds);
-        System.out.println("alarm time : " + alarmHour + " " + alarmMinute + " " + alarmSecond);
-
-        return 0;
     }
 
     public void setNumberPickers() {
@@ -149,6 +126,7 @@ public class AlarmFragment extends Fragment {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 getActivity().getApplicationContext(), 234324243, intent, 0);
         alarmManager.cancel(pendingIntent);
+        hasAlarm = false;
     }
 
     public void enableAlarm() {
@@ -170,17 +148,17 @@ public class AlarmFragment extends Fragment {
 
         Intent intent = new Intent(getActivity().getApplicationContext(), AlarmReceiver.class);
         intent.setAction("AlarmStarted");
-        int vl = Integer.parseInt(vLimitEditText.getText().toString());
+        double vl = Double.parseDouble(vLimitEditText.getText().toString());
         intent.putExtra("velocity limit", vl);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 getActivity().getApplicationContext(), 234324243, intent, 0);
 //        alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                 + (seconds * 1000), pendingIntent);
         toggleButton.setChecked(true);
 
 
-//        Toast.makeText(getActivity(), "Alarm set in " + seconds + " seconds", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Alarm set in " + seconds + " seconds", Toast.LENGTH_LONG).show();
 //        checkAlarm();
 
     }

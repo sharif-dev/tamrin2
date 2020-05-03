@@ -16,7 +16,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             AlarmFragment.getToggleButton().setChecked(false);
 
             Intent secondActivityIntent = new Intent(context, AlarmActivity.class);
-            int vl = intent.getIntExtra("velocity limit", 0);
+            double vl = intent.getDoubleExtra("velocity limit", 0);
             secondActivityIntent.putExtra("velocity limit", vl);
             secondActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.getApplicationContext().startActivity(secondActivityIntent);
