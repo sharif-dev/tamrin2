@@ -11,15 +11,20 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
+        Toast.makeText(context, "jane ammat javab bedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", Toast.LENGTH_LONG).show();
+        System.out.println("jane ammat javab bedeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
         if ("AlarmStarted".equals(action)) {
-            AlarmFragment.getToggleButton().setChecked(false);
+            System.out.println("areeeeeeeeeee dashtiiiiiiiim?");
+//            AlarmFragment.getToggleButton().setChecked(false);
+
+//            Toast.makeText(context, "Alarm...!", Toast.LENGTH_LONG).show();
 
             Intent secondActivityIntent = new Intent(context, AlarmActivity.class);
             double vl = intent.getDoubleExtra("velocity limit", 0);
             secondActivityIntent.putExtra("velocity limit", vl);
             secondActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.getApplicationContext().startActivity(secondActivityIntent);
+            context.startActivity(secondActivityIntent);
 
         }
 

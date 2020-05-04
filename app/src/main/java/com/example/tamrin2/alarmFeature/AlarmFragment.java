@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +13,24 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.tamrin2.R;
 
+import java.sql.Time;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AlarmFragment extends Fragment {
+
+    private static Context myContext;
+    public static int pendingIntentCode = 1111111;
 
     private View fragmentView;
 
@@ -33,16 +39,16 @@ public class AlarmFragment extends Fragment {
     private static ToggleButton toggleButton;
     private EditText vLimitEditText;
 
-    private NumberPicker hourPicker;
-    private NumberPicker minutePicker;
+    private static boolean hasAlarm;
 
-    private boolean hasAlarm;
+    private TimePicker timePicker;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         System.out.println("onCreateViewwwwwwwwwwwwwww");
+        myContext = getActivity().getApplicationContext();
         fragmentView = inflater.inflate(R.layout.alarm_fragment, container, false);
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         return fragmentView;
@@ -54,10 +60,43 @@ public class AlarmFragment extends Fragment {
 
         System.out.println("helloooooooooōoooooooooooo i'm in fragment!");
 
-        setNumberPickers();
+//        setNumberPickers();
+
+        timePicker = (TimePicker) getActivity().findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
 
 
         toggleButton = view.findViewById(R.id.toggleButton);
+        vLimitEditText = view.findViewById(R.id.vLimit);
+
+        Button setAlarmBtn = view.findViewById(R.id.setAlarmBtn);
+        setAlarmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!vLimitEditText.getText().toString().equals(""))
+                    setAlarm();
+                else {
+                    Toast.makeText(myContext, "Please enter limit!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+
+    }
+
+    @Override
+    public void onResume() {
+        System.out.println("$$$$$$$$ on resume function");
+
+
+        hasAlarm = checkAlarm(getActivity().getApplicationContext());
+        if (hasAlarm) {
+            toggleButton.setChecked(true);
+        } else {
+            toggleButton.setChecked(false);
+        }
+
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -69,37 +108,13 @@ public class AlarmFragment extends Fragment {
             }
         });
 
-        hasAlarm = checkAlarm(getActivity().getApplicationContext());
-        if (hasAlarm) {
-            toggleButton.setChecked(true);
-        } else {
-            toggleButton.setChecked(false);
-        }
-
-        vLimitEditText = view.findViewById(R.id.vLimit);
-
-        Button setAlarmBtn = view.findViewById(R.id.setAlarmBtn);
-        setAlarmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAlarm();
-            }
-        });
-
-
-
-    }
-
-    @Override
-    public void onResume() {
-        System.out.println("$$$$$$$$ on resume function");
         super.onResume();
     }
 
     public boolean checkAlarm(Context context) {
         Intent intent = new Intent(context, AlarmReceiver.class);//the same as up
         intent.setAction("AlarmStarted");//the same as up
-        boolean isWorking = (PendingIntent.getBroadcast(context, 234324243, intent,
+        boolean isWorking = (PendingIntent.getBroadcast(context, pendingIntentCode, intent,
                 PendingIntent.FLAG_NO_CREATE) != null);//just changed the flag
         Toast.makeText(context, " !!!!!!! alarm is " + (isWorking ? "" : "not") + " working...",
                 Toast.LENGTH_LONG).show();
@@ -108,23 +123,12 @@ public class AlarmFragment extends Fragment {
 
     }
 
-    public void setNumberPickers() {
-        hourPicker = fragmentView.findViewById(R.id.hour_picker);
-        minutePicker = fragmentView.findViewById(R.id.minute_picker);
-
-        hourPicker.setMaxValue(24);
-        hourPicker.setMinValue(0);
-
-        minutePicker.setMaxValue(59);
-        minutePicker.setMinValue(0);
-
-    }
-
     public void cancelAlarm() {
-        Intent intent = new Intent(getActivity().getApplicationContext(), AlarmReceiver.class);
+        System.out.println("come onnnnnnnnnnnnnnnn");
+        Intent intent = new Intent(myContext, AlarmReceiver.class);
         intent.setAction("AlarmStarted");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getActivity().getApplicationContext(), 234324243, intent, 0);
+                myContext, pendingIntentCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pendingIntent);
         hasAlarm = false;
     }
@@ -134,9 +138,10 @@ public class AlarmFragment extends Fragment {
     }
 
     public void setAlarm() {
-        int hour = hourPicker.getValue();
-        int minute = minutePicker.getValue();
+        int hour = timePicker.getCurrentHour();
+        int minute = timePicker.getCurrentMinute();
         int second = 0;
+
 
         Calendar calendar = Calendar.getInstance();
         int hourDist = hour - calendar.get(Calendar.HOUR_OF_DAY);
@@ -146,13 +151,12 @@ public class AlarmFragment extends Fragment {
         final int seconds = 3600 * hourDist + 60 * minuteDist + secondDist;
 
 
-        Intent intent = new Intent(getActivity().getApplicationContext(), AlarmReceiver.class);
+        Intent intent = new Intent(myContext, AlarmReceiver.class);
         intent.setAction("AlarmStarted");
         double vl = Double.parseDouble(vLimitEditText.getText().toString());
         intent.putExtra("velocity limit", vl);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getActivity().getApplicationContext(), 234324243, intent, 0);
-//        alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+                myContext, pendingIntentCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                 + (seconds * 1000), pendingIntent);
         toggleButton.setChecked(true);
@@ -165,6 +169,14 @@ public class AlarmFragment extends Fragment {
 
     public static ToggleButton getToggleButton() {
         return toggleButton;
+    }
+
+    public static void setHasAlarm(boolean hasAlarm) {
+        AlarmFragment.hasAlarm = hasAlarm;
+    }
+
+    public static Context getMyContext() {
+        return myContext;
     }
 }
 

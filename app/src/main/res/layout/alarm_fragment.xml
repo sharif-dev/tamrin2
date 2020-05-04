@@ -3,53 +3,53 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <NumberPicker
-        android:id="@+id/hour_picker"
+    <TimePicker
+        android:id="@+id/timePicker"
         android:layout_width="wrap_content"
-        android:layout_height="148dp"
-        android:layout_marginTop="20dp"
-        />
-
-
-    <NumberPicker
-        android:id="@+id/minute_picker"
-        android:layout_width="wrap_content"
-        android:layout_height="147dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/hour_picker" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:timePickerMode="spinner" />
 
     <EditText
         android:id="@+id/vLimit"
-        android:layout_width="171dp"
-        android:layout_height="75dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="167dp"
-        android:layout_marginLeft="39dp"
-        android:layout_marginEnd="73dp"
-        android:layout_toRightOf="@+id/minute_picker"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/timePicker"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/edit_text_style"
         android:gravity="center"
-        android:layout_marginTop="20dp"
         android:hint="enter velocity limit" />
 
-    <Button
-        android:id="@+id/setAlarmBtn"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hour_picker"
-        android:layout_marginTop="101dp"
-        android:onClick="setAlarm"
-        android:text="set alarm" />
+        android:layout_below="@+id/vLimit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:gravity="center">
 
-    <ToggleButton
-        android:id="@+id/toggleButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/setAlarmBtn"
-        android:layout_marginTop="125dp"
-        android:textOff="Alarm Is Off"
-        android:textOn="Alarm Is On" />
+        <Button
+            android:id="@+id/setAlarmBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setAlarm"
+            android:text="set alarm" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/setAlarmBtn"
+            android:textColor="@color/black"
+            android:textOff="@string/off"
+            android:textOn="@string/on" />
+
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

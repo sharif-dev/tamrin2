@@ -38,12 +38,6 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-
     public void loadFragment(Fragment fragment, int layout) {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
