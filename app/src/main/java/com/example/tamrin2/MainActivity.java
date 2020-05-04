@@ -11,10 +11,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.tamrin2.ThirdFeature.DeviceAdmin;
+import com.example.tamrin2.ThirdFeature.ThirdFeatureView;
+
 public class MainActivity extends AppCompatActivity {
-    static MainActivity m;
-    static final int RESULT_ENABLE = 1 ;
-    static DevicePolicyManager deviceManger ;
+    public static MainActivity m;
+    public static final int RESULT_ENABLE = 1 ;
+    public static DevicePolicyManager deviceManger ;
     ComponentName compName ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

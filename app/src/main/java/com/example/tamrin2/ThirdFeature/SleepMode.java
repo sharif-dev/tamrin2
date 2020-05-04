@@ -1,25 +1,23 @@
-package com.example.tamrin2;
+package com.example.tamrin2.ThirdFeature;
 
 import android.app.Service;
-import android.app.admin.DevicePolicyManager;
-import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.nfc.Tag;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Process;
-import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Toast;
 
-public class SleepMode extends Service{
+import com.example.tamrin2.MainActivity;
+import com.example.tamrin2.R;
+
+public class SleepMode extends Service {
     public static int degree = 45;
     public static boolean run = false;
     private static Looper serviceLooper;
@@ -32,15 +30,16 @@ public class SleepMode extends Service{
         return "SleepMode";
     }
 
-    private final class ServiceHandler extends Handler implements SensorEventListener{
+    private final class ServiceHandler extends Handler implements SensorEventListener {
         private SensorManager sensorManager = null;
+
         ServiceHandler(Looper looper) {
             super(looper);
         }
 
         public void handleMessage(Message message) {
-            if(message.arg2 == 1){
-                if(sensorManager == null) {
+            if (message.arg2 == 1) {
+                if (sensorManager == null) {
                     sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
                     Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
@@ -51,7 +50,7 @@ public class SleepMode extends Service{
                     }
                 }
             }
-            if(message.arg2 == 2){
+            if (message.arg2 == 2) {
                 sensorManager.unregisterListener(this);
                 stopSelf();
             }
@@ -59,12 +58,12 @@ public class SleepMode extends Service{
 
         @Override
         public void onSensorChanged(SensorEvent event) {
-            if(event.sensor.getType()==Sensor.TYPE_GRAVITY) {
+            if (event.sensor.getType() == Sensor.TYPE_GRAVITY) {
                 float[] g = event.values;
                 double norm_Of_g = Math.sqrt((g[0] * g[0]) + (g[1] * g[1]) + (g[2] * g[2]));
                 g[2] = (float) (g[2] / norm_Of_g);
                 int inclination = (int) Math.round(Math.toDegrees(Math.acos(g[2])));
-                if (inclination > (180 - degree)){
+                if (inclination > (180 - degree)) {
                     MainActivity.deviceManger.lockNow();
                 }
             }
@@ -76,7 +75,7 @@ public class SleepMode extends Service{
         }
     }
 
-    public void onCreate(){
+    public void onCreate() {
         HandlerThread thread = new HandlerThread("StartServiceArguments",
                 Process.THREAD_PRIORITY_BACKGROUND);
         thread.start();
@@ -85,7 +84,7 @@ public class SleepMode extends Service{
         serviceHandler = new ServiceHandler(serviceLooper);
     }
 
-    public int onStartCommand(Intent intent, int flags, int startId){
+    public int onStartCommand(Intent intent, int flags, int startId) {
         onTaskRemoved(intent);
         Message msg = serviceHandler.obtainMessage();
         msg.arg1 = startId;
@@ -100,8 +99,8 @@ public class SleepMode extends Service{
         return null;
     }
 
-    public void onTaskRemoved(Intent rootIntent){
-        if(run) {
+    public void onTaskRemoved(Intent rootIntent) {
+        if (run) {
             Intent restartIntentService = new Intent(getApplicationContext(), this.getClass());
             restartIntentService.setPackage(getPackageName());
             startService(restartIntentService);
@@ -109,7 +108,7 @@ public class SleepMode extends Service{
         super.onTaskRemoved(rootIntent);
     }
 
-    public static void stop(){
+    public static void stop() {
         run = false;
         Message msg = serviceHandler.obtainMessage();
         msg.arg2 = 2;//meaning : stop service

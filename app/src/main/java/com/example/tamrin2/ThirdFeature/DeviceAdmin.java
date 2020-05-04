@@ -1,9 +1,11 @@
-package com.example.tamrin2;
+package com.example.tamrin2.ThirdFeature;
 
 import android.app.admin.DeviceAdminReceiver ;
 import android.content.Context ;
 import android.content.Intent ;
 import android.widget.Toast ;
+
+import com.example.tamrin2.R;
 
 
 public class DeviceAdmin extends DeviceAdminReceiver {

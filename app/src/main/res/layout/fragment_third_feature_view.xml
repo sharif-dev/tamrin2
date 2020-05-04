@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThirdFeatureView">
+    tools:context=".ThirdFeature.ThirdFeatureView">
 
     <TextView
         android:id="@+id/ThirdFeature"
@@ -45,17 +45,17 @@
         android:layout_height="wrap_content"
         android:textColor="@color/darkBlack"
         android:textSize="12sp"
-        app:layout_constraintLeft_toRightOf="@+id/textView"
-        app:layout_constraintBottom_toTopOf="@+id/degrees"/>
+        app:layout_constraintBottom_toTopOf="@+id/degrees"
+        app:layout_constraintLeft_toRightOf="@+id/textView" />
 
     <SeekBar
         android:id="@+id/degrees"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:progress="45"
+        android:indeterminate="false"
         android:max="90"
         android:min="0"
-        android:indeterminate="false"
+        android:progress="45"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
