@@ -25,7 +25,6 @@
             android:enabled="true"
             />
 
-        <service android:name=".alarmFeature.AlarmServiceTwo" />
         <service android:name=".alarmFeature.AlarmService"/>
 
 

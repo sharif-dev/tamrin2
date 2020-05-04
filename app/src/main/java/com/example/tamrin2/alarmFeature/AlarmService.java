@@ -57,13 +57,13 @@ public class AlarmService extends Service implements MediaPlayer.OnPreparedListe
         player.stop();
         player.release();
         vibrator.cancel();
-        sendBroadcast(new Intent("finishAlarmReceived"));
+//        sendBroadcast(new Intent("finishAlarmReceived"));
     }
 
     public void onPrepared(final MediaPlayer player) {
-        System.out.println("_________________________");
+//        System.out.println("_________________________");
         player.start();
-        System.out.println("Player song started!");
+//        System.out.println("Player song started!");
         Handler handler = new Handler();
         handler.postDelayed(new Runnable()
         {

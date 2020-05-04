@@ -96,7 +96,7 @@ public class AlarmActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        int milliSeconds = 5000;//10*60*1000;
+        int milliSeconds = 10*60*1000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -106,24 +106,25 @@ public class AlarmActivity extends Activity {
     }
 
     protected void onStop() {
-//        if(list.size()>0){
-//            sensorManager.unregisterListener(sensorEventListener);
-//        }
+        if(list.size()>0){
+            sensorManager.unregisterListener(sensorEventListener);
+        }
         stopService(myServiceIntent);
 
-        System.out.println("_________________________ areeeeeeeeeeeeeeeeeeeeeee?");
+//        System.out.println("_________________________ areeeeeeeeeeeeeeeeeeeeeee?");
         cancelAlarm();
         super.onStop();
     }
 
 
     public void cancelAlarm() {
-        AlarmManager alarmManager =(AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//        AlarmManager alarmManager =(AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(AlarmFragment.getMyContext(), AlarmReceiver.class);
         intent.setAction("AlarmStarted");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 AlarmFragment.getMyContext(), AlarmFragment.pendingIntentCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.cancel(pendingIntent);
+//        alarmManager.cancel(pendingIntent);
+        AlarmFragment.getAlarmManager().cancel(pendingIntent);
     }
 }

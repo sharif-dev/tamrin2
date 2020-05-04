@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         loadFragment(new AlarmFragment(), R.id.first_fragment);
+//        loadFragment(new SecondFragment(), R.id.second_fragment);
+//        loadFragment(new ThirdFragment(), R.id.third_fragment);
 
 
 

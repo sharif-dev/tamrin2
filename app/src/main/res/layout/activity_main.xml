@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:scrollbarAlwaysDrawHorizontalTrack="true"
+    android:overScrollMode="ifContentScrolls"
+    >
 
 <!--    <TextView-->
 <!--        android:id="@+id/textView"-->
@@ -17,20 +20,38 @@
 <!--        app:layout_constraintRight_toRightOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <FrameLayout
-        android:id="@+id/first_fragment"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        />
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/second_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        />
+            <FrameLayout
+            android:id="@+id/first_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+
+            <FrameLayout
+                android:id="@+id/second_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/first_fragment"
+                android:layout_marginTop="100dp"
+                />
+
+            <FrameLayout
+                android:id="@+id/third_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/second_fragment"
+                android:layout_marginTop="100dp"
+                /></LinearLayout>
+    </ScrollView>
 
 
 
-</LinearLayout>
+</RelativeLayout>

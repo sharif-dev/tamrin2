@@ -34,7 +34,7 @@ public class AlarmFragment extends Fragment {
 
     private View fragmentView;
 
-    private AlarmManager alarmManager;
+    private static AlarmManager alarmManager;
 
     private static ToggleButton toggleButton;
     private EditText vLimitEditText;
@@ -47,7 +47,6 @@ public class AlarmFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        System.out.println("onCreateViewwwwwwwwwwwwwww");
         myContext = getActivity().getApplicationContext();
         fragmentView = inflater.inflate(R.layout.alarm_fragment, container, false);
         alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
@@ -57,11 +56,6 @@ public class AlarmFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        System.out.println("helloooooooooōoooooooooooo i'm in fragment!");
-
-//        setNumberPickers();
-
         timePicker = (TimePicker) getActivity().findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
 
@@ -87,9 +81,6 @@ public class AlarmFragment extends Fragment {
 
     @Override
     public void onResume() {
-        System.out.println("$$$$$$$$ on resume function");
-
-
         hasAlarm = checkAlarm(getActivity().getApplicationContext());
         if (hasAlarm) {
             toggleButton.setChecked(true);
@@ -116,15 +107,14 @@ public class AlarmFragment extends Fragment {
         intent.setAction("AlarmStarted");//the same as up
         boolean isWorking = (PendingIntent.getBroadcast(context, pendingIntentCode, intent,
                 PendingIntent.FLAG_NO_CREATE) != null);//just changed the flag
-        Toast.makeText(context, " !!!!!!! alarm is " + (isWorking ? "" : "not") + " working...",
-                Toast.LENGTH_LONG).show();
+//        Toast.makeText(context, " !!!!!!! alarm is " + (isWorking ? "" : "not") + " working...",
+//                Toast.LENGTH_LONG).show();
 
         return isWorking;
 
     }
 
     public void cancelAlarm() {
-        System.out.println("come onnnnnnnnnnnnnnnn");
         Intent intent = new Intent(myContext, AlarmReceiver.class);
         intent.setAction("AlarmStarted");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -177,6 +167,10 @@ public class AlarmFragment extends Fragment {
 
     public static Context getMyContext() {
         return myContext;
+    }
+
+    public static AlarmManager getAlarmManager() {
+        return alarmManager;
     }
 }
 
