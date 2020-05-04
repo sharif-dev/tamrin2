@@ -6,4 +6,5 @@
     <string name="no_sensor">Your device does not have the required sensors!!!</string>
     <string name="admin_enabled">This app can now lock your device</string>
     <string name="admin_disable">This app can no longer lock your device</string>
+    <string name="admin_premission_explanation">The Sleep Mode feature needs this permission to work</string>
 </resources>

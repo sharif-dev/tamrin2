@@ -2,6 +2,7 @@ package com.example.tamrin2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -26,10 +27,65 @@ public class MainActivity extends AppCompatActivity {
         deviceManger = (DevicePolicyManager) getSystemService(Context. DEVICE_POLICY_SERVICE ) ;
         compName = new ComponentName( this, DeviceAdmin. class ) ;
 
+        SeekBarManagement();
+        checkBoxManager();
+    }
 
+    private boolean isMyServiceRunning(Class<?> SleepMode) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (SleepMode.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void checkBoxManager() {
+        CheckBox check = findViewById(R.id.Ethird);
+        if(isMyServiceRunning(SleepMode.class)){
+            check.setChecked(true);
+        }
+        checkBoxListener(check);
+    }
+
+    private void checkBoxListener(CheckBox check) {
+        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    enablePhone();
+                    SleepMode.run = true;
+                    Intent intent = new Intent(getApplicationContext(), SleepMode.class);
+                    startService(intent);
+                }
+                else{
+                    SleepMode.stop();CheckBox check = findViewById(R.id.Ethird);
+        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    enablePhone();
+                    Intent intent = new Intent(getApplicationContext(), SleepMode.class);
+                    startService(intent);
+                }
+                else{
+                    SleepMode.stop();
+                }
+            }
+        });
+                }
+            }
+        });
+    }
+
+    private void SeekBarManagement() {
         sBar = findViewById(R.id.degrees);
         tView =  findViewById(R.id.seekBar_result);
         tView.setText("45");
+        //todo if service is running get the degree
         SleepMode.degree = sBar.getProgress();
         sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int pval = 0;
@@ -48,23 +104,6 @@ public class MainActivity extends AppCompatActivity {
                 //...
             }
         });
-
-
-        CheckBox check = findViewById(R.id.Ethird);
-        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    enablePhone();
-                    Intent intent = new Intent(getApplicationContext(), SleepMode.class);
-                    startService(intent);
-                }
-                else{
-                    SleepMode.stop();
-                }
-            }
-        });
     }
 
     public void enablePhone(){
@@ -72,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         if (!active) {
             Intent intent = new Intent(DevicePolicyManager. ACTION_ADD_DEVICE_ADMIN ) ;
             intent.putExtra(DevicePolicyManager. EXTRA_DEVICE_ADMIN , compName ) ;
-            intent.putExtra(DevicePolicyManager. EXTRA_ADD_EXPLANATION , "You should enable the app!" ) ;
+            intent.putExtra(DevicePolicyManager. EXTRA_ADD_EXPLANATION , R.string.admin_premission_explanation ) ;
             startActivityForResult(intent , RESULT_ENABLE ) ;
         }
     }
