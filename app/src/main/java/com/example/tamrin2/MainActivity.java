@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     startService(intent);
                 }
                 else{
-                    deviceManger .removeActiveAdmin( compName ) ;
+                    SleepMode.stop();
                 }
             }
         });

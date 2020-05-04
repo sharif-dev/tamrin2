@@ -21,8 +21,8 @@ import android.widget.Toast;
 
 public class SleepMode extends Service{
     public static int degree;
-    private Looper serviceLooper;
-    private ServiceHandler serviceHandler;
+    private static Looper serviceLooper;
+    private static ServiceHandler serviceHandler;
 
     private final class ServiceHandler extends Handler implements SensorEventListener{
         private SensorManager sensorManager = null;
@@ -62,11 +62,6 @@ public class SleepMode extends Service{
                 //TODO restarting sensor when activity not closed
                 if (inclination > (180 - degree)){
                     MainActivity.deviceManger.lockNow();
-
-
-                    Message msg = serviceHandler.obtainMessage();
-                    msg.arg2 = 2;//meaning : start service
-                    serviceHandler.sendMessage(msg);
                 }
             }
         }
@@ -75,6 +70,12 @@ public class SleepMode extends Service{
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
         }
+    }
+
+    public static void stop(){
+        Message msg = serviceHandler.obtainMessage();
+        msg.arg2 = 2;//meaning : start service
+        serviceHandler.sendMessage(msg);
     }
 
 
