@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
         deviceManger = (DevicePolicyManager) getSystemService(Context. DEVICE_POLICY_SERVICE ) ;
         compName = new ComponentName( this, DeviceAdmin. class ) ;
 
-        SeekBarManagement();
-        checkBoxManager();
+        viewInitializer();
     }
 
     private boolean isMyServiceRunning(Class<?> SleepMode) {
@@ -41,12 +40,41 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void checkBoxManager() {
+    private void viewInitializer() {
         CheckBox check = findViewById(R.id.Ethird);
+        sBar = findViewById(R.id.degrees);
+        tView =  findViewById(R.id.seekBar_result);
         if(isMyServiceRunning(SleepMode.class)){
             check.setChecked(true);
+            sBar.setProgress(SleepMode.degree);
+            tView.setText(String.valueOf(SleepMode.degree));
         }
+        else{
+            SleepMode.degree = sBar.getProgress();
+            tView.setText("45");
+        }
+        seekBarListener();
         checkBoxListener(check);
+    }
+
+    private void seekBarListener() {
+        sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int pval = 0;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                pval = progress;
+                SleepMode.degree = pval;
+                tView.setText(String.valueOf(progress));
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //write custom code to on start progress
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //...
+            }
+        });
     }
 
     private void checkBoxListener(CheckBox check) {
@@ -77,31 +105,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
                 }
-            }
-        });
-    }
-
-    private void SeekBarManagement() {
-        sBar = findViewById(R.id.degrees);
-        tView =  findViewById(R.id.seekBar_result);
-        tView.setText("45");
-        //todo if service is running get the degree
-        SleepMode.degree = sBar.getProgress();
-        sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int pval = 0;
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                pval = progress;
-                SleepMode.degree = pval;
-                tView.setText(String.valueOf(progress));
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                //write custom code to on start progress
-            }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //...
             }
         });
     }
