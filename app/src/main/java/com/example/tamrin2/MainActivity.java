@@ -15,10 +15,6 @@ import com.example.tamrin2.alarmFeature.AlarmFragment;
 public class MainActivity extends AppCompatActivity {
 
     private static Context context;
-    private ToggleButton toggleButton;
-    private int velocityLimit;
-    private EditText vLimitEditText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -26,7 +26,6 @@ import java.util.List;
 public class AlarmActivity extends Activity {
 
     SensorManager sensorManager = null;
-    TextView textView = null;
     List list;
     Intent myServiceIntent;
     float zAxisVelocity;
@@ -41,8 +40,6 @@ public class AlarmActivity extends Activity {
 
         animateBell();
 
-        textView = findViewById(R.id.textView);
-
         Intent intent = getIntent();
         velocityLimit = intent.getDoubleExtra("velocity limit", 0);
 
@@ -50,7 +47,6 @@ public class AlarmActivity extends Activity {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
                 float[] values = sensorEvent.values;
-                textView.setText("x: "+values[0]+"\ny: "+values[1]+"\nz: "+values[2]);
                 zAxisVelocity = values[2] < 0 ? -values[2] : values[2];
 
                 if (zAxisVelocity >= velocityLimit) {

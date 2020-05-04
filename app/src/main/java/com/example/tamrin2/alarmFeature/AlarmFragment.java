@@ -30,7 +30,7 @@ import java.util.Calendar;
 public class AlarmFragment extends Fragment {
 
     private static Context myContext;
-    public static int pendingIntentCode = 1111111;
+    public static int pendingIntentCode = 44444444;
 
     private View fragmentView;
 
@@ -59,7 +59,6 @@ public class AlarmFragment extends Fragment {
         timePicker = (TimePicker) getActivity().findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
 
-
         toggleButton = view.findViewById(R.id.toggleButton);
         vLimitEditText = view.findViewById(R.id.vLimit);
 
@@ -67,9 +66,9 @@ public class AlarmFragment extends Fragment {
         setAlarmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!vLimitEditText.getText().toString().equals(""))
-                    setAlarm();
-                else {
+                if (!vLimitEditText.getText().toString().equals("")) {
+                    toggleButton.setChecked(true);
+                } else {
                     Toast.makeText(myContext, "Please enter limit!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -81,7 +80,7 @@ public class AlarmFragment extends Fragment {
 
     @Override
     public void onResume() {
-        hasAlarm = checkAlarm(getActivity().getApplicationContext());
+        hasAlarm = checkAlarm();
         if (hasAlarm) {
             toggleButton.setChecked(true);
         } else {
@@ -102,23 +101,24 @@ public class AlarmFragment extends Fragment {
         super.onResume();
     }
 
-    public boolean checkAlarm(Context context) {
-        Intent intent = new Intent(context, AlarmReceiver.class);//the same as up
+
+    public boolean checkAlarm() {
+        Intent intent = new Intent(myContext, AlarmReceiver.class);//the same as up
         intent.setAction("AlarmStarted");//the same as up
-        boolean isWorking = (PendingIntent.getBroadcast(context, pendingIntentCode, intent,
+        boolean isWorking = (PendingIntent.getBroadcast(myContext, pendingIntentCode, intent,
                 PendingIntent.FLAG_NO_CREATE) != null);//just changed the flag
-//        Toast.makeText(context, " !!!!!!! alarm is " + (isWorking ? "" : "not") + " working...",
-//                Toast.LENGTH_LONG).show();
 
         return isWorking;
 
     }
 
+
+
     public void cancelAlarm() {
         Intent intent = new Intent(myContext, AlarmReceiver.class);
         intent.setAction("AlarmStarted");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                myContext, pendingIntentCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                myContext, pendingIntentCode, intent, PendingIntent.FLAG_NO_CREATE);
         alarmManager.cancel(pendingIntent);
         hasAlarm = false;
     }
@@ -131,7 +131,6 @@ public class AlarmFragment extends Fragment {
         int hour = timePicker.getCurrentHour();
         int minute = timePicker.getCurrentMinute();
         int second = 0;
-
 
         Calendar calendar = Calendar.getInstance();
         int hourDist = hour - calendar.get(Calendar.HOUR_OF_DAY);
@@ -146,10 +145,9 @@ public class AlarmFragment extends Fragment {
         double vl = Double.parseDouble(vLimitEditText.getText().toString());
         intent.putExtra("velocity limit", vl);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                myContext, pendingIntentCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                myContext, pendingIntentCode, intent, 0);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                 + (seconds * 1000), pendingIntent);
-        toggleButton.setChecked(true);
 
 
         Toast.makeText(getActivity(), "Alarm set in " + seconds + " seconds", Toast.LENGTH_LONG).show();

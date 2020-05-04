@@ -5,21 +5,12 @@
     android:background="@color/colorPrimary"
     >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hello world!"
-        />
-
     <ImageView
         android:id="@+id/clock"
-        android:layout_width="320dp"
-        android:layout_height="322dp"
-        android:layout_below="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="371dp"
+
         android:layout_marginTop="70dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
         android:src="@mipmap/clock" />
 
     <TextView
