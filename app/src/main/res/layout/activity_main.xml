@@ -7,6 +7,7 @@
     android:gravity="center"
     android:id="@+id/container"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context=".MainActivity">
 
 
@@ -16,4 +17,56 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="SHAKE SERVICE" />
+=======
+    tools:context=".MainActivity"
+    android:orientation="horizontal"
+    android:scrollbarAlwaysDrawHorizontalTrack="true"
+    android:overScrollMode="ifContentScrolls"
+    >
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Hello World!"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+            android:id="@+id/first_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+
+            <FrameLayout
+                android:id="@+id/second_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/first_fragment"
+                android:layout_marginTop="100dp"
+                />
+
+            <FrameLayout
+                android:id="@+id/third_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/second_fragment"
+                android:layout_marginTop="100dp"
+                /></LinearLayout>
+    </ScrollView>
+
+
+
+>>>>>>> 1b4e2a66394848f6a7933b7ce25101121c7f0361
 </RelativeLayout>
