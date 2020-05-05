@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/font1"
         android:textColor="@color/black"
-        android:text="@string/third_title"
+        android:text="@string/second_title"
         app:layout_constraintBottom_toTopOf="@+id/active_status"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
