@@ -11,9 +11,7 @@
     <string name="admin_disable">This app can no longer lock your device</string>
     <string name="admin_permission_explanation">The Sleep Mode feature needs this permission to work</string>
     <string name="first_feature_name">Deep Dream</string>
-<<<<<<< HEAD
-=======
     <string name="shake_detected">SHAKE DETECTED</string>
     <string name="shake_stop">Service Stopped !</string>
->>>>>>> 3e705bef05ca047e595ee574e6a562b5be72f425
+    <string name="rotate_phone">Rotate Phone To Stop Alarm!</string>
 </resources>

@@ -20,10 +20,12 @@
             android:orientation="vertical">
 
             <FrameLayout
-            android:id="@+id/first_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" />
+                android:id="@+id/first_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+            <View style="@style/Divider.Horizontal"/>
 
             <FrameLayout
                 android:id="@+id/second_fragment"
@@ -32,6 +34,8 @@
                 android:layout_below="@id/first_fragment"
                 android:layout_marginTop="100dp"
                 />
+
+            <View style="@style/Divider.Horizontal"/>
 
             <FrameLayout
                 android:id="@+id/third_fragment"

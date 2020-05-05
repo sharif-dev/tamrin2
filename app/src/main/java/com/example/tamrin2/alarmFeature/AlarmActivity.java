@@ -1,9 +1,7 @@
 package com.example.tamrin2.alarmFeature;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -14,7 +12,6 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -38,7 +35,9 @@ public class AlarmActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_activity);
 
-        animateBell();
+        animateImage();
+        rotatePhone();
+
 
         Intent intent = getIntent();
         velocityLimit = intent.getDoubleExtra("velocity limit", 0);
@@ -65,11 +64,17 @@ public class AlarmActivity extends Activity {
 
     }
 
-    public void animateBell() {
+    public void animateImage() {
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake_clock);
-        ImageView imgBell= findViewById(R.id.clock);
+        ImageView imgBell = findViewById(R.id.clock);
         imgBell.setImageResource(R.mipmap.clock);
         imgBell.setAnimation(shake);
+    }
+
+    public void rotatePhone() {
+        ImageView phoneImage = findViewById(R.id.phone);
+        phoneImage.startAnimation(
+                AnimationUtils.loadAnimation(this, R.anim.rotate_indefinitely) );
     }
 
     public void startService() {
@@ -81,10 +86,10 @@ public class AlarmActivity extends Activity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         list = sensorManager.getSensorList(Sensor.TYPE_GYROSCOPE);
-        if(list.size()>0){
+        if (list.size() > 0) {
             sensorManager.registerListener(sensorEventListener,
                     (Sensor) list.get(0), SensorManager.SENSOR_DELAY_NORMAL);
-        }else{
+        } else {
             Toast.makeText(getBaseContext(), "Error: No Accelerometer.", Toast.LENGTH_LONG).show();
         }
     }
@@ -92,7 +97,7 @@ public class AlarmActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        int milliSeconds = 10*60*1000;
+        int milliSeconds = 10 * 60 * 1000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -101,26 +106,25 @@ public class AlarmActivity extends Activity {
         }, milliSeconds);
     }
 
-    protected void onStop() {
-        if(list.size()>0){
+
+    @Override
+    protected void onPause() {
+
+        if (list.size() > 0) {
             sensorManager.unregisterListener(sensorEventListener);
         }
         stopService(myServiceIntent);
-
-//        System.out.println("_________________________ areeeeeeeeeeeeeeeeeeeeeee?");
         cancelAlarm();
-        super.onStop();
+
+        super.onPause();
     }
 
 
     public void cancelAlarm() {
-//        AlarmManager alarmManager =(AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
         Intent intent = new Intent(AlarmFragment.getMyContext(), AlarmReceiver.class);
         intent.setAction("AlarmStarted");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                AlarmFragment.getMyContext(), AlarmFragment.pendingIntentCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        alarmManager.cancel(pendingIntent);
+                AlarmFragment.getMyContext(), AlarmFragment.pendingIntentCode, intent, PendingIntent.FLAG_NO_CREATE);
         AlarmFragment.getAlarmManager().cancel(pendingIntent);
     }
 }
