@@ -109,7 +109,6 @@ public class AlarmActivity extends Activity {
 
     @Override
     protected void onPause() {
-
         if (list.size() > 0) {
             sensorManager.unregisterListener(sensorEventListener);
         }

@@ -150,16 +150,7 @@ public class AlarmFragment extends Fragment {
                 + (seconds * 1000), pendingIntent);
 
         Toast.makeText(getActivity(), "Alarm set in " + (seconds > 0 ? seconds : 0) + " seconds", Toast.LENGTH_LONG).show();
-//        checkAlarm();
 
-    }
-
-    public static ToggleButton getToggleButton() {
-        return toggleButton;
-    }
-
-    public static void setHasAlarm(boolean hasAlarm) {
-        AlarmFragment.hasAlarm = hasAlarm;
     }
 
     public static Context getMyContext() {

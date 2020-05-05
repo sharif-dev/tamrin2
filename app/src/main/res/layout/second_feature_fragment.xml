@@ -2,30 +2,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="8dp"
     android:id="@+id/shake_container"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <TextView
-        android:text="Shake the phone to detect to shake event"
-        android:id="@+id/genera_txv"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/ThirdFeature"
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/font1"
+        android:textColor="@color/black"
+        android:text="@string/third_title"
+        app:layout_constraintBottom_toTopOf="@+id/active_status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:text="Status : Activated"
+        android:text="@string/second_active"
         android:textSize="24sp"
         android:id="@+id/active_status"
         android:textStyle="bold"
+        android:fontFamily="@font/font1"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <TextView
-        android:text="Status : Not Activated"
+        android:text="@string/second_not_active"
         android:textSize="24sp"
         android:id="@+id/deactive_status"
+        android:fontFamily="@font/font1"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -33,12 +44,20 @@
 
     <Button
         android:id="@+id/active_btn"
-        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:fontFamily="@font/font1"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text="Enable Shake Detection" />
+        android:background="@drawable/custom_border"
+        android:text="@string/enable_third" />
     <Button
         android:id="@+id/deactive_btn"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
+        android:fontFamily="@font/font1"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:layout_height="wrap_content"
-        android:text="Disable Sahke Detection" />
+        android:background="@drawable/custom_border"
+        android:text="@string/disable_third" />
 </LinearLayout>
