@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,7 +5,7 @@
     android:padding="8dp"
     android:id="@+id/shake_container"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    >
     <TextView
         android:text="Shake the phone to detect to shake event"
         android:id="@+id/genera_txv"
