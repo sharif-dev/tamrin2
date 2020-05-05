@@ -1,9 +1,6 @@
 package com.example.tamrin2.shake;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -13,26 +10,23 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.tamrin2.MainActivity;
 import com.example.tamrin2.R;
 
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
 
 public class MySensorService extends Service implements SensorEventListener {
 
     float xAccel, yAccel, zAccel;
+    boolean run  = false;
     float xPreviousAccel, yPreviousAccel, zPreviousAccel;
     private final String TAG = getClass().getSimpleName();
     boolean firstUpdate = true;
     boolean shakeInitiated = false;
-    float shakeThreshhold = 10f;
+    float shakeThreshhold = 6f;
     boolean start = true;
     private PowerManager.WakeLock wakeLock;
-    private boolean pendingWakeUp;
 
     Sensor accelerometer;
     SensorManager sm;
@@ -71,36 +65,27 @@ public class MySensorService extends Service implements SensorEventListener {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Toast.makeText(this, "Service Started ! SHAKE IT :)", Toast.LENGTH_LONG).show();
-        start = true;
-        return super.onStartCommand(intent, flags, startId);
-
+        return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Service Stopped !", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), R.string.sheka_stop, Toast.LENGTH_LONG).show();
         start = false;
-        wakeLock.release();
+
         super.onDestroy();
     }
 
     @SuppressLint("InvalidWakeLockTag")
     private void executeShakeAction() {
-        if (start) {
-            Log.w("mpp", "SCREEN OFF WORKED ");
-            Toast.makeText(this, "SHAKE DETECTED", Toast.LENGTH_LONG).show();
-            Intent wakeup = new Intent(this, WakeLockService.class);
-
-            PowerManager pm = (PowerManager) getApplicationContext().getSystemService(POWER_SERVICE);
-            assert pm != null;
-            wakeLock = pm.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "MyWakeUP");
-            wakeLock.acquire();
-        }
+        Toast.makeText(getApplicationContext(), R.string.shake_detected, Toast.LENGTH_SHORT).show();
+        PowerManager pm = (PowerManager) getApplicationContext().getSystemService(POWER_SERVICE);
+        assert pm != null;
+        wakeLock = pm.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "MyWakeUP");
+        wakeLock.acquire();
 
 
     }
-
     private boolean isAccelerationChanged() {
         float deltax = Math.abs(xPreviousAccel - xAccel);
         float deltaY = Math.abs(yPreviousAccel - yAccel);
@@ -109,6 +94,7 @@ public class MySensorService extends Service implements SensorEventListener {
                 (deltax > shakeThreshhold && deltaZ > shakeThreshhold) ||
                 (deltaY > shakeThreshhold && deltaZ > shakeThreshhold);
     }
+
 
     private void updateAccelParameters(float xNewAccel, float yNewAccel, float zNewAccel) {
         if (firstUpdate) {
@@ -128,25 +114,6 @@ public class MySensorService extends Service implements SensorEventListener {
 
     }
 
-    private void showNotification() {
-        final NotificationManager mgr = (NotificationManager) this
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder note = new NotificationCompat.Builder(this);
-        note.setContentTitle("Device Accelerometer Notification");
-        note.setTicker("New Message Alert!");
-        note.setAutoCancel(true)
-                .setPriority(Notification.PRIORITY_MAX);
-        // to set default sound/light/vibrate or all
-        note.setDefaults(Notification.DEFAULT_ALL);
-        // Icon to be set on Notification
-        note.setSmallIcon(R.drawable.ic_launcher_background);
-        // This pending intent will open after notification click
-        PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this,
-                MainActivity.class), 0);
-        // set pending intent to notification builder
-        note.setContentIntent(pi);
-        mgr.notify(101, note.build());
-    }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
