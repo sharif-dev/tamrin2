@@ -19,6 +19,7 @@ import com.example.tamrin2.alarmFeature.AlarmFragment;
 
 import com.example.tamrin2.ThirdFeature.DeviceAdmin;
 import com.example.tamrin2.ThirdFeature.ThirdFeatureView;
+import com.example.tamrin2.shake.ShakeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         loadFragment(new AlarmFragment(), R.id.first_fragment);
-//        loadFragment(new SecondFragment(), R.id.second_fragment);
+       loadFragment(new ShakeFragment(), R.id.second_fragment);
         loadFragment(new ThirdFeatureView(), R.id.third_fragment);
 
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context="com.example.tamrin2.MainActivity"
     android:orientation="horizontal"
     android:scrollbarAlwaysDrawHorizontalTrack="true"
     android:overScrollMode="ifContentScrolls"
