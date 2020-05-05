@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">tamrin2</string>
+      <string name="shake_detected">SHAKE DETECTED</string>
+    <string name="sheka_stop">Service stopped !</string>
 </resources>
