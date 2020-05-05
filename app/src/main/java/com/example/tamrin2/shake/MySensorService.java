@@ -70,7 +70,7 @@ public class MySensorService extends Service implements SensorEventListener {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(getApplicationContext(), R.string.sheka_stop, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), R.string.shake_stop, Toast.LENGTH_LONG).show();
         start = false;
 
         super.onDestroy();

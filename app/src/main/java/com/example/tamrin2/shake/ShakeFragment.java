@@ -33,7 +33,7 @@ public class ShakeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final boolean isRunning = isMyServiceRunning(MySensorService.class);
-        View shakeView =inflater.inflate(R.layout.second_fragment, container, false);
+        View shakeView =inflater.inflate(R.layout.second_feature_fragment, container, false);
         final TextView activeStatus  = shakeView.findViewById(R.id.active_status);
         activeStatus.setVisibility(View.GONE);
         final TextView deActiveStatus = shakeView.findViewById(R.id.deactive_status);
