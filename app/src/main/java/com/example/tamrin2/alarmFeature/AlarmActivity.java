@@ -33,7 +33,7 @@ public class AlarmActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.second_activity);
+        setContentView(R.layout.alarm_activity);
 
         animateImage();
         rotatePhone();
