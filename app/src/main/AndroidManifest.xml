@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tamrin2">
-<<<<<<< HEAD
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
@@ -11,14 +13,11 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
-=======
     <uses-permission android:name= "android.permission.CALL_PHONE" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
->>>>>>> 1b4e2a66394848f6a7933b7ce25101121c7f0361
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -38,10 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
+
 
         <service android:name=".shake.MySensorService" />
-=======
+
         <activity android:name=".alarmFeature.AlarmActivity"
             android:exported="true"
             android:enabled="true"
@@ -66,7 +65,6 @@
                 <action android:name= "android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
->>>>>>> 1b4e2a66394848f6a7933b7ce25101121c7f0361
     </application>
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
