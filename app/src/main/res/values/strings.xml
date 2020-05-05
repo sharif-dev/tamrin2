@@ -14,4 +14,8 @@
     <string name="shake_detected">SHAKE DETECTED</string>
     <string name="shake_stop">Service Stopped !</string>
     <string name="rotate_phone">Rotate Phone To Stop Alarm!</string>
+    <string name="enter_limit">Enter Limit</string>
+    <string name="first_title">First Feature : Deep Alarm</string>
+    <string name="second_title">Second Feature : Shake</string>
+    <string name="third_title">Third Feature : Sleep Mode</string>
 </resources>
