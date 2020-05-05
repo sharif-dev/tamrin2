@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">tamrin2</string>
-<<<<<<< HEAD
-      <string name="shake_detected">SHAKE DETECTED</string>
-    <string name="sheka_stop">Service stopped !</string>
-=======
     <string name="wake_up">WAKE UP!</string>
     <string name="on">On</string>
     <string name="off">Off</string>
@@ -14,5 +10,7 @@
     <string name="admin_enabled">This app can now lock your device</string>
     <string name="admin_disable">This app can no longer lock your device</string>
     <string name="admin_permission_explanation">The Sleep Mode feature needs this permission to work</string>
->>>>>>> 1b4e2a66394848f6a7933b7ce25101121c7f0361
+    <string name="first_feature_name">Deep Dream</string>
+    <string name="shake_detected">SHAKE DETECTED</string>
+    <string name="shake_stop">Service Stopped !</string>
 </resources>
