@@ -1,13 +1,5 @@
 package com.example.tamrin2;
 
-<<<<<<< HEAD
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-=======
 import android.content.Context;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,27 +19,16 @@ import com.example.tamrin2.alarmFeature.AlarmFragment;
 
 import com.example.tamrin2.ThirdFeature.DeviceAdmin;
 import com.example.tamrin2.ThirdFeature.ThirdFeatureView;
->>>>>>> 1b4e2a66394848f6a7933b7ce25101121c7f0361
-
 import com.example.tamrin2.shake.ShakeFragment;
 
-<<<<<<< HEAD
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 public class MainActivity extends AppCompatActivity {
-    Button shakeBtn;
-    ShakeFragment shakeFragment;
-    public static DevicePolicyManager deviceManger ;
-=======
+
     private static Context context;
 
     public static MainActivity m;
     public static final int RESULT_ENABLE = 1 ;
     public static DevicePolicyManager deviceManger ;
     ComponentName compName ;
->>>>>>> 1b4e2a66394848f6a7933b7ce25101121c7f0361
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         m = this;
@@ -55,20 +36,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
-
-
-    }
-    
-    @Override
-    public void onBackPressed() {
-        shakeBtn.setVisibility(View.VISIBLE);
-        super.onBackPressed();
-=======
         context = getApplicationContext();
 
         loadFragment(new AlarmFragment(), R.id.first_fragment);
-//        loadFragment(new SecondFragment(), R.id.second_fragment);
+       loadFragment(new ShakeFragment(), R.id.second_fragment);
         loadFragment(new ThirdFeatureView(), R.id.third_fragment);
 
 
@@ -110,6 +81,5 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(DevicePolicyManager. EXTRA_ADD_EXPLANATION , R.string.admin_permission_explanation ) ;
             startActivityForResult(intent , RESULT_ENABLE ) ;
         }
->>>>>>> 1b4e2a66394848f6a7933b7ce25101121c7f0361
     }
 }
